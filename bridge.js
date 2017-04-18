@@ -3,17 +3,17 @@ var port = Number(process.env.PORT || 4444);
 var dataLogger = require('./dataLogger.js');
 
 var sensorClient = mqtt.connect({
+  host : '128.199.158.11',
+  port : 8883,
+  username : 'sensor-service',
+  password : '12345'
+});
+
+var tfssClient = mqtt.connect({
   host : '188.166.184.34',
   port : 6969,
   username : 'pipeeroac05c207b',
   password : '5738921e589fcb114312db62'
-});
-
-var tfssClient = mqtt.connect({
-  host : 'ip-of-tfss-mqtt-broker',
-  port : 1883,
-  username : 'user',
-  password : 'password'
 });
 
 tfssClient.on('connect', function () {
@@ -50,7 +50,7 @@ sensorClient.on('message', function (topic, payload, packet) {
     });
     // 3. pass this message to tf webserver`
     console.log('transmitting to TF WebServer: ', payload);
-    // tfssClient.publish(topic, payload);
+    tfssClient.publish(topic, payload);
   }
 
 });
