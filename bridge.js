@@ -43,11 +43,11 @@ sensorClient.on('message', function (topic, payload, packet) {
     // 1. authenticate message ( TODO )
 
     // 2. save the data log to nosql db
-    dataLogger.save(message.deviceId, String(payload), function(result){
-      console.log(result);
-    }, function(error){
-      console.log(error);
-    });
+    // dataLogger.save(message.deviceId, String(payload), function(result){
+    //   console.log(result);
+    // }, function(error){
+    //   console.log(error);
+    // });
     // 3. pass this message to tf webserver`
     console.log('transmitting to TF WebServer: ', payload);
     tfssClient.publish(topic, payload);
